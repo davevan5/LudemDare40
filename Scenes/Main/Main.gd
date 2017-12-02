@@ -3,7 +3,7 @@ extends Node2D
 var platform_factory
 var spawn_timer = 0.0
 
-const PLATFORM_SPAWN_RATE = 2.4
+const PLATFORM_SPAWN_RATE = 2.0
 
 func _ready():
 	platform_factory = preload("res://Scenes/Platform/Platform.tscn")
