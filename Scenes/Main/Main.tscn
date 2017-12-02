@@ -73,6 +73,8 @@ _update_shape_index = 0
 transform/scale = Vector2( 12.5, 0.25 )
 texture = ExtResource( 6 )
 
+[node name="PlatformContainer" type="Node2D" parent="."]
+
 [node name="sea" type="Sprite" parent="."]
 
 transform/pos = Vector2( 640, 360 )
