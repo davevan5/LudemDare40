@@ -118,6 +118,10 @@ func _fixed_process(delta):
 			jump_impulse = jump_impulse_initial
 			jump_released = false
 		
+		var pos = get_pos()
+		pos += Vector2(0, 1) * 150 * delta
+		set_pos(pos)
+		#velocity += Vector2(0, 1) * 150
 		velocity += calculate_horizontal_velocity_adjustment(delta, ground_acceleration)
 			
 		if !is_on_ground():
@@ -142,7 +146,6 @@ func _fixed_process(delta):
 	
 	if get_pos().y > 752:
 		emit_signal("player_died")
-		
 
 func set_look_direction(velocity):
 	# Set player direction based velocity

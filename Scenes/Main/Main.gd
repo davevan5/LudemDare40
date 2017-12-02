@@ -50,9 +50,10 @@ func _process(delta):
 		return
 	
 	spawn_timer -= PLATFORM_SPAWN_RATE
-	var platform1 = platform_factory.instance();
-	var platform2 = platform_factory.instance();
-	platform1.spawn(1, 150)
-	platform2.spawn(2, 150)
-	platform_container.add_child(platform1)
-	platform_container.add_child(platform2)
+	spawn_platform(1, 2)
+	spawn_platform(2, 2)
+
+func spawn_platform(player, count):
+	var platform = platform_factory.instance()
+	add_child(platform)
+	platform.spawn(player, count)
