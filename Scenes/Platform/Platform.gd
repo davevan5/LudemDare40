@@ -3,7 +3,7 @@ extends Node2D
 var body
 
 const DIRECTION = Vector2(0.0, 1.0)
-const INITIAL_SPEED = 150
+const INITIAL_SPEED = 100
 
 func _process(delta):
 	var body_pos = body.get_pos()
@@ -16,8 +16,14 @@ func _process(delta):
 
 func _ready():
 	body = get_node("KinematicBody2D")
-	body.set_pos(Vector2(200, 10))
 	set_process(true)
 
-func set_width(width):
+func spawn(player, width):
+	randomize()
+
+	if player == 1:
+		set_pos(Vector2(randi()%400+100, 10))
+	else:
+		set_pos(Vector2(randi()%400+800, 10))
+
 	get_node("KinematicBody2D/MiddleSprite").set_region_rect(Rect2(0, 0, width, 32))
