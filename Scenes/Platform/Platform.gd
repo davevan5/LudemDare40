@@ -22,27 +22,22 @@ func _process(delta):
 	body_pos += DIRECTION * INITIAL_SPEED * delta
 	body.set_pos(body_pos)
 
-func spawn(player, count):
+func spawn(area, count):
 	var width = (count + 2) * BLOCK_WIDTH
 	var midwidth = width / 2
 	
-	get_node("PlatformBody/PlatformCollision") \
-		.get_shape().set_extents(Vector2(midwidth, 16))
-	
-	var left = BLOCK_WIDTH_MID - midwidth
-	var right = midwidth - BLOCK_WIDTH_MID
-	get_node("PlatformBody/LeftSprite").set_pos(Vector2(left, 0))
-	get_node("PlatformBody/RightSprite").set_pos(Vector2(right, 0))
+	get_node("PlatformBody/PlatformCollision").get_shape().set_height(width)
+
+	get_node("PlatformBody/LeftSprite").set_pos(Vector2(-midwidth, -16))
+	get_node("PlatformBody/RightSprite").set_pos(Vector2(midwidth - BLOCK_WIDTH, -16))
 	
 	for i in range(count):
 		i += 1
 		var block = block_factory.instance()
-		var x = (i * BLOCK_WIDTH) + left
+		var x = (i * BLOCK_WIDTH) - midwidth
 		block.set_pos(Vector2(x, 0))
 		get_node("PlatformBody").add_child(block)
 	
 	randomize()
-	if player == 1:
-		set_pos(Vector2(randi()%400+100, 10))
-	else:
-		set_pos(Vector2(randi()%400+800, 10))
+	var min_x = (area * 300) + midwidth
+	set_pos(Vector2((randi() % (300 - width)) + min_x, 10))

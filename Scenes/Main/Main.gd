@@ -3,7 +3,8 @@ extends Node2D
 var platform_factory
 var spawn_timer = 0.0
 
-const PLATFORM_SPAWN_RATE = 2.0
+const MIN_SPAWN_RATE = 1.0
+const MAX_SPAWN_RATE = 2.0
 
 var player1;
 var player2;
@@ -45,14 +46,17 @@ func reset_game():
 
 func _process(delta):
 	spawn_timer += delta
-	if spawn_timer < PLATFORM_SPAWN_RATE:
+	if spawn_timer < MAX_SPAWN_RATE:
 		return
 	
-	spawn_timer -= PLATFORM_SPAWN_RATE
-	spawn_platform(1, 2)
-	spawn_platform(2, 2)
+	spawn_timer -= MAX_SPAWN_RATE
+	randomize()
+	spawn_platform(0, randi()%3+1)
+	spawn_platform(1, randi()%3+1)
+	spawn_platform(2, randi()%3+1)
+	spawn_platform(3, randi()%3+1)
 
-func spawn_platform(player, count):
+func spawn_platform(area, count):
 	var platform = platform_factory.instance()
-	platform_container.add_child(platform)
-	platform.spawn(player, count)
+	add_child(platform)
+	platform.spawn(area, count)
