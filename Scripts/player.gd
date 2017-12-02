@@ -17,9 +17,15 @@ const LEFT = Vector2(-1.0, 0.0)
 
 var look_direction = LookDirection.RIGHT
 var state = States.GROUND
-var action_move_left = "player1_move_left"
-var action_move_right = "player1_move_right"
-var action_jump = "player1_jump"
+
+export(String) var action_move_left = "player1_move_left"
+export(String) var action_move_right = "player1_move_right"
+export(String) var action_jump = "player1_jump"
+
+export(String) var animation_idle_left = "RedIdleLeft"
+export(String) var animation_idle_right = "RedIdleRight"
+export(String) var animation_walk_left = "RedWalkLeft"
+export(String) var animation_walk_right = "RedWalkRight"
 
 var jump_impulse = 0
 const jump_impulse_initial = 25000
@@ -97,24 +103,28 @@ func _fixed_process(delta):
 		velocity.x = -max_horizontal_speed
 	
 	set_linear_velocity(velocity)
-	
+	set_look_direction(velocity)
+	select_animation(velocity)
+
+func set_look_direction(velocity):
 	# Set player direction based velocity
 	if velocity.x < 0:
 		look_direction = LookDirection.LEFT
 	elif velocity.x > 0:
 		look_direction = LookDirection.RIGHT
-	
+
+func select_animation(velocity):
 	# Set animation based off velocity
-	if velocity.x != 0:
+	if velocity.x != 0 && state == States.GROUND:
 		if look_direction == LookDirection.LEFT:
-			play_animation("WalkLeft")
+			play_animation(animation_walk_left)
 		else:
-			play_animation("WalkRight")
+			play_animation(animation_walk_right)
 	else:
 		if look_direction == LookDirection.LEFT:
-			play_animation("IdleLeft")
+			play_animation(animation_idle_left)
 		else:
-			play_animation("IdleRight")
+			play_animation(animation_idle_right)
 
 func play_animation(animation_name):
 	if !animation_player.is_playing() || animation_player.get_current_animation() != animation_name:
