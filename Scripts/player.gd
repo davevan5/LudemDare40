@@ -29,7 +29,7 @@ export(String) var animation_walk_right = "RedWalkRight"
 
 var jump_impulse = 0
 const jump_impulse_initial = 25000
-const jump_impulse_decay = 23000
+const jump_impulse_decay = 30000
 
 const ground_acceleration = 2000;
 const air_acceleration = 1000;
@@ -45,11 +45,23 @@ var right_ceiling_raycast
 var animation_player
 var collision_shape
 
+var jump_released = true
+
 func _ready():
 	animation_player = get_node("Player1Sprite/animation")
 	collision_shape = get_node("CollisionShape2D")
 	setup_raycasts()
 	set_fixed_process(true)
+	set_process_input(true)
+	
+func _input(event):
+	if !Input.is_action_pressed(action_jump):
+		jump_released = true
+		if state == States.JUMPING:
+			jump_impulse = 0
+	
+	
+
 	
 func setup_raycasts():
 	left_floor_raycast = get_node("LeftFloorRaycast")	
@@ -93,7 +105,7 @@ func _fixed_process(delta):
 		jump_impulse -= jump_impulse_decay * delta
 		
 		# If we run out of jump then that means we must begin falling
-		if jump_impulse < 0 || !Input.is_action_pressed(action_jump) || is_touching_ceiling():
+		if jump_impulse < 10 || !Input.is_action_pressed(action_jump) || is_touching_ceiling():
 			jump_impulse = 0
 			state = States.FALLING
 		else:
@@ -102,9 +114,10 @@ func _fixed_process(delta):
 		velocity += calculate_horizontal_velocity_adjustment(delta, air_acceleration)
 	
 	if state == States.GROUND:
-		if Input.is_action_pressed(action_jump):
+		if Input.is_action_pressed(action_jump) && jump_released == true:
 			state = States.JUMPING
 			jump_impulse = jump_impulse_initial
+			jump_released = false
 		
 		velocity += calculate_horizontal_velocity_adjustment(delta, ground_acceleration)
 			
