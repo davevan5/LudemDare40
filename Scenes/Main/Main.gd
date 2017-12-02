@@ -41,8 +41,7 @@ func reset_game():
 	
 	for platform in platform_container.get_children():
 		platform_container.remove_child(platform);
-		platform.queue_free()
-	
+		platform.free()
 
 func _process(delta):
 	spawn_timer += delta
@@ -55,5 +54,5 @@ func _process(delta):
 
 func spawn_platform(player, count):
 	var platform = platform_factory.instance()
-	add_child(platform)
+	platform_container.add_child(platform)
 	platform.spawn(player, count)
