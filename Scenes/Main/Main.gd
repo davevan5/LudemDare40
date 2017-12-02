@@ -6,7 +6,7 @@ var spawn_timer = 0.0
 const PLATFORM_SPAWN_RATE = 1.4
 
 func _ready():
-	platform_factory = preload("res://Scenes/Platform.tscn")
+	platform_factory = preload("res://Scenes/Platform/Platform.tscn")
 	set_process(true)
 	
 func _process(delta):

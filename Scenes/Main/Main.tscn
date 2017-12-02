@@ -81,7 +81,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 32, 32 )
+extents = Vector2( 32, 31.5557 )
 
 [node name="Node2D" type="Node2D"]
 
