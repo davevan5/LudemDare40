@@ -47,6 +47,8 @@ var collision_shape
 
 var jump_released = true
 
+signal player_died
+
 func _ready():
 	animation_player = get_node("Player1Sprite/animation")
 	collision_shape = get_node("CollisionShape2D")
@@ -59,10 +61,7 @@ func _input(event):
 		jump_released = true
 		if state == States.JUMPING:
 			jump_impulse = 0
-	
-	
 
-	
 func setup_raycasts():
 	left_floor_raycast = get_node("LeftFloorRaycast")	
 	right_floor_raycast = get_node("RightFloorRaycast")
@@ -119,6 +118,10 @@ func _fixed_process(delta):
 			jump_impulse = jump_impulse_initial
 			jump_released = false
 		
+		var pos = get_pos()
+		pos += Vector2(0, 1) * 150 * delta
+		set_pos(pos)
+		#velocity += Vector2(0, 1) * 150
 		velocity += calculate_horizontal_velocity_adjustment(delta, ground_acceleration)
 			
 		if !is_on_ground():
@@ -140,6 +143,9 @@ func _fixed_process(delta):
 	set_linear_velocity(velocity)
 	set_look_direction(velocity)
 	select_animation(velocity)
+	
+	if get_pos().y > 752:
+		emit_signal("player_died")
 
 func set_look_direction(velocity):
 	# Set player direction based velocity
