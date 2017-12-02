@@ -58,5 +58,5 @@ func _process(delta):
 
 func spawn_platform(area, count):
 	var platform = platform_factory.instance()
-	add_child(platform)
+	platform_container.add_child(platform)
 	platform.spawn(area, count)

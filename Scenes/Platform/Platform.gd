@@ -26,7 +26,16 @@ func spawn(area, count):
 	var width = (count + 2) * BLOCK_WIDTH
 	var midwidth = width / 2
 	
-	get_node("PlatformBody/PlatformCollision").get_shape().set_height(width)
+	var shape = CapsuleShape2D.new()
+	shape.set_height(width)
+	shape.set_radius(16)
+	
+	get_node("PlatformBody").add_shape(shape, Matrix32().rotated(PI/2))
+	
+	var collision_node = get_node("PlatformBody/PlatformCollision")
+	collision_node.set_shape(shape)
+	collision_node.set_trigger(false)
+	
 
 	get_node("PlatformBody/LeftSprite").set_pos(Vector2(-midwidth, -16))
 	get_node("PlatformBody/RightSprite").set_pos(Vector2(midwidth - BLOCK_WIDTH, -16))
