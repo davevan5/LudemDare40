@@ -27,14 +27,12 @@ _update_shape_index = 0
 [node name="LeftSprite" type="Sprite" parent="PlatformBody"]
 
 texture = ExtResource( 2 )
-centered = false
 region = true
 region_rect = Rect2( 96, 256, 32, 32 )
 
 [node name="RightSprite" type="Sprite" parent="PlatformBody"]
 
 texture = ExtResource( 2 )
-centered = false
 region = true
 region_rect = Rect2( 192, 256, 32, 32 )
 

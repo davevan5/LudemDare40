@@ -23,7 +23,7 @@ func _process(delta):
 	body.set_pos(body_pos)
 
 func spawn(area, count):
-	var width = (count + 2) * BLOCK_WIDTH
+	var width = (count + 1) * BLOCK_WIDTH
 	var midwidth = width / 2
 	
 	var shape = CapsuleShape2D.new()
@@ -34,16 +34,14 @@ func spawn(area, count):
 	
 	var collision_node = get_node("PlatformBody/PlatformCollision")
 	collision_node.set_shape(shape)
-	collision_node.set_trigger(false)
-	
 
-	get_node("PlatformBody/LeftSprite").set_pos(Vector2(-midwidth, -16))
-	get_node("PlatformBody/RightSprite").set_pos(Vector2(midwidth - BLOCK_WIDTH, -16))
-	
+	get_node("PlatformBody/LeftSprite").set_pos(Vector2(-midwidth, 0))
+	get_node("PlatformBody/RightSprite").set_pos(Vector2(midwidth, 0))
+	print(count)
 	for i in range(count):
-		i += 1
 		var block = block_factory.instance()
-		var x = (i * BLOCK_WIDTH) - midwidth
+		var x = ((i + 1) * BLOCK_WIDTH) - midwidth
+		print(str(i + 1) + ":" + str(x))
 		block.set_pos(Vector2(x, 0))
 		get_node("PlatformBody").add_child(block)
 	
