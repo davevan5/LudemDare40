@@ -6,10 +6,16 @@ enum States {
 	FALLING
 }
 
+enum LookDirection {
+	LEFT,
+	RIGHT
+}
+
 const UP = Vector2(0.0, -1.0)
 const RIGHT = Vector2(1.0, 0.0)
 const LEFT = Vector2(-1.0, 0.0)
 
+var look_direction = LookDirection.RIGHT
 var state = States.GROUND
 var action_move_left = "player1_move_left"
 var action_move_right = "player1_move_right"
@@ -26,8 +32,10 @@ const max_horizontal_speed = 300;
 
 var left_floor_raycast
 var right_floor_raycast
+var animation_player
 
 func _ready():
+	animation_player = get_node("Player1Sprite/animation")
 	setup_raycasts()
 	set_fixed_process(true)
 	
@@ -90,3 +98,24 @@ func _fixed_process(delta):
 	
 	set_linear_velocity(velocity)
 	
+	# Set player direction based velocity
+	if velocity.x < 0:
+		look_direction = LookDirection.LEFT
+	elif velocity.x > 0:
+		look_direction = LookDirection.RIGHT
+	
+	# Set animation based off velocity
+	if velocity.x != 0:
+		if look_direction == LookDirection.LEFT:
+			play_animation("WalkLeft")
+		else:
+			play_animation("WalkRight")
+	else:
+		if look_direction == LookDirection.LEFT:
+			play_animation("IdleLeft")
+		else:
+			play_animation("IdleRight")
+
+func play_animation(animation_name):
+	if !animation_player.is_playing() || animation_player.get_current_animation() != animation_name:
+		animation_player.play(animation_name)
