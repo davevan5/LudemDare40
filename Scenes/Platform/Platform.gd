@@ -35,8 +35,8 @@ func get_width():
 func create(position):
 	var shape = CapsuleShape2D.new()
 	shape.set_height(get_width())
-	shape.set_radius(16)
-	get_node("PlatformBody").add_shape(shape, Matrix32().rotated(PI/2))	
+	shape.set_radius(10)
+	get_node("PlatformBody").add_shape(shape, Matrix32().rotated(PI/2))
 	var collision_node = get_node("PlatformBody/PlatformCollision")
 	collision_node.set_shape(shape)
 	

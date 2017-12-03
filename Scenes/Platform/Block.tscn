@@ -6,6 +6,7 @@
 
 [node name="Sprite" type="Sprite" parent="."]
 
+transform/scale = Vector2( 1, 0.6 )
 texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 128, 256, 32, 32 )

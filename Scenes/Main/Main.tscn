@@ -91,7 +91,7 @@ script/script = ExtResource( 7 )
 
 [node name="sea" type="Sprite" parent="."]
 
-transform/pos = Vector2( 640, 360 )
+transform/pos = Vector2( 640, 360.815 )
 texture = ExtResource( 8 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
@@ -130,5 +130,25 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
+
+[node name="TimerLabel" type="RichTextLabel" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -151.0
+margin/top = 24.0
+margin/right = -280.0
+margin/bottom = -30.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode/enabled = false
+bbcode/bbcode = "0.0"
+visible_characters = -1
+percent_visible = 1.0
 
 

@@ -1,7 +1,7 @@
 extends Node2D
 
-const MIN_RATE = 0.8
-const MAX_RATE = 1.4
+var min_rate = 0.8
+var max_rate = 1.4
 
 const INITIAL_ZONES = 2
 const MAX_ZONES = 5
@@ -25,8 +25,9 @@ func _process(delta):
 
 func create(zone):
 	randomize()
+	var game_speed = Globals.get("game_speed")
 	timer[zone] -= rate[zone]
-	rate[zone] = (randf() * MAX_RATE) + MIN_RATE
+	rate[zone] = (randf() * (max_rate / game_speed)) + (min_rate / game_speed)
 
 	var platform = platform_scene.instance()
 	platform.set_block_count(randi()%4 + 2)
@@ -47,6 +48,7 @@ func set_speed(speed):
 	platform_speed = speed
 	for platform in get_children():
 		platform.set_speed(speed)
+
 
 func reset():
 	timer = [0.0, 0.0]
