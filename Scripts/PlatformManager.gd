@@ -1,18 +1,24 @@
 extends Node2D
 
-const MIN_RATE = 1.25
-const MAX_RATE = 2.5
+const MIN_RATE = 0.8
+const MAX_RATE = 1.4
+
+const INITIAL_ZONES = 2
+const MAX_ZONES = 5
+var zones = INITIAL_ZONES
+var zone_width = 1280 / INITIAL_ZONES
 
 var platform_scene
 var platform_speed = 100
-var rate = [1.6, 0.4, 2.0, 0.2]
-var timer = [0.0, 0.0, 0.0, 0.0]
+
+var rate = [0.2, 0.4]
+var timer = [0.0, 0.0]
 
 func _ready():
 	platform_scene = preload("res://Scenes/Platform/Platform.tscn")
 
 func _process(delta):
-	for i in range(4):
+	for i in range(zones):
 		timer[i] += delta
 		if timer[i] > rate[i]:
 			create(i)
@@ -20,10 +26,17 @@ func _process(delta):
 func create(zone):
 	randomize()
 	timer[zone] -= rate[zone]
-	rate[zone] = randf()*MAX_RATE + MIN_RATE
+	rate[zone] = (randf() * MAX_RATE) + MIN_RATE
 
 	var platform = platform_scene.instance()
-	platform.spawn(zone)
+	platform.set_block_count(randi()%4 + 2)
+	var platform_width = platform.get_width()
+
+	var min_x = (zone * zone_width) + (platform_width / 2)
+	var rand_x = (randi() % (zone_width - platform_width)) + min_x
+	var position = Vector2(rand_x, 0)
+	
+	platform.create(position)
 	platform.set_speed(platform_speed)
 	add_child(platform)
 
@@ -36,8 +49,8 @@ func set_speed(speed):
 		platform.set_speed(speed)
 
 func reset():
-	timer = [0.0, 0.0, 0.0, 0.0]
-	rate = [1.6, 0.4, 2.0, 0.2]
+	timer = [0.0, 0.0]
+	rate = [0.2, 0.4]
 
 	for platform in get_children():
 		remove_child(platform)
