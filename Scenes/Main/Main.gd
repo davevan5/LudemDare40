@@ -39,6 +39,8 @@ var player2_win_display
 var countdown_text
 var boat_node
 var platform_manager
+var logo
+var instruction
 
 func _init():
 	Globals.set("game_speed", INTIAL_GAME_SPEED)
@@ -71,7 +73,15 @@ func _ready():
 	player2_win_display = get_node("blue wins")
 	
 	boat_node = get_node("BoatContainer/Boat")
+	logo = get_node("logo")
+	instruction = get_node("Instruction")
+	
 	reset_game()
+	
+	state = State.END
+	logo.show()
+	instruction.show()
+	
 	set_process_input(true)
 	set_process(true)
 
@@ -86,6 +96,9 @@ func on_player2_died():
 	on_player1_win()
 	
 func reset_game():
+	logo.hide()
+	instruction.hide()
+	
 	player1.set_pos(player1_start_location)
 	player2.set_pos(player2_start_location)
 	player1.set_linear_velocity(Vector2(0, 0))
@@ -200,12 +213,14 @@ func on_player1_win():
 	state = State.END
 	player1.arms_up()
 	player1_win_display.show()
+	instruction.show()
 
 func on_player2_win():
 	pause()
 	state = State.END
 	player2.arms_up()
 	player2_win_display.show()
+	instruction.show()
 	
 func show_countdown(index):
 	for i in range(4):

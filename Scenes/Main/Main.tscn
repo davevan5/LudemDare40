@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=1]
+[gd_scene load_steps=20 format=1]
 
 [ext_resource path="res://Scenes/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Images/background.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Images/2.png" type="Texture" id=14]
 [ext_resource path="res://Images/1.png" type="Texture" id=15]
 [ext_resource path="res://Images/go.png" type="Texture" id=16]
+[ext_resource path="res://Images/logo.png" type="Texture" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -206,5 +207,26 @@ texture = ExtResource( 15 )
 
 transform/pos = Vector2( 640, 360 )
 texture = ExtResource( 16 )
+
+[node name="logo" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 360 )
+texture = ExtResource( 17 )
+
+[node name="Instruction" type="RichTextLabel" parent="."]
+
+rect/scale = Vector2( 3, 3 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 355.0
+margin/top = 74.0
+margin/right = 563.0
+margin/bottom = 89.0
+bbcode/enabled = false
+bbcode/bbcode = "Press [Space] or [Start] to play!"
+visible_characters = -1
+percent_visible = 1.0
 
 
