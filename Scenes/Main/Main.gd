@@ -22,6 +22,8 @@ var boat_node
 var platform_manager
 
 func _ready():
+	get_node("SamplePlayer").play("music")
+	
 	platform_manager = get_node("PlatformManager")
 
 	countdown_text = get_node("RichTextLabel")
