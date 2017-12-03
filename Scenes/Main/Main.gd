@@ -68,6 +68,9 @@ func reset_game():
 	player1.set_pos(player1_start_location)
 	player2.set_pos(player2_start_location)
 	
+	game_time = 0.0
+	game_speed = INTIAL_GAME_SPEED
+	game_acceleration = 1.0
 	boat_movement_timer = 0
 	countdown_timer = 0
 	countdown_text.set_text("Get Ready!")
@@ -88,8 +91,6 @@ func _process(delta):
 	Globals.set("game_speed", game_speed)
 	game_acceleration += GAME_ACCELERATION_RATE
 	update_platform_speed(INITIAL_PLATFORM_SPEED * game_speed)
-
-	get_node("TimerLabel").set_text("Time: %.3f\nSpeed: %.2f" % [game_time, game_speed])
 	
 	if state == State.COUNTDOWN:
 		countdown_timer += delta
