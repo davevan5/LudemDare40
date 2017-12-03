@@ -184,3 +184,9 @@ func play_animation(animation_name):
 
 func set_platform_speed(speed):
 	platform_speed = speed
+	
+func arms_up():
+	if look_direction == LookDirection.LEFT:
+		play_animation(animation_air_left)
+	else:
+		play_animation(animation_air_right)

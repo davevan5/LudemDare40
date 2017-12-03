@@ -1,14 +1,21 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=19 format=1]
 
 [ext_resource path="res://Scenes/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Images/background.png" type="Texture" id=2]
 [ext_resource path="res://Images/left tree.png" type="Texture" id=3]
 [ext_resource path="res://Images/right tree.png" type="Texture" id=4]
-[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Images/boat.png" type="Texture" id=6]
-[ext_resource path="res://Scripts/SpawnManager.gd" type="Script" id=7]
-[ext_resource path="res://Images/sea.png" type="Texture" id=8]
-[ext_resource path="res://Music/POL-treasure-match-short.smp" type="Sample" id=9]
+[ext_resource path="res://Images/scoreboard.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Images/boat.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/SpawnManager.gd" type="Script" id=8]
+[ext_resource path="res://Images/sea.png" type="Texture" id=9]
+[ext_resource path="res://Music/POL-treasure-match-short.smp" type="Sample" id=10]
+[ext_resource path="res://Images/red wins.png" type="Texture" id=11]
+[ext_resource path="res://Images/blue wins.png" type="Texture" id=12]
+[ext_resource path="res://Images/3.png" type="Texture" id=13]
+[ext_resource path="res://Images/2.png" type="Texture" id=14]
+[ext_resource path="res://Images/1.png" type="Texture" id=15]
+[ext_resource path="res://Images/go.png" type="Texture" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -21,7 +28,7 @@ samples/music = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 9 )
+"sample": ExtResource( 10 )
 }
 
 [node name="Node2D" type="Node2D"]
@@ -43,11 +50,53 @@ texture = ExtResource( 3 )
 transform/pos = Vector2( 640, 360 )
 texture = ExtResource( 4 )
 
-[node name="Player1" parent="." instance=ExtResource( 5 )]
+[node name="Player1Score" type="Sprite" parent="."]
+
+transform/pos = Vector2( 160, 350 )
+texture = ExtResource( 5 )
+
+[node name="Text" type="RichTextLabel" parent="Player1Score"]
+
+rect/scale = Vector2( 5, 5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -109.0
+margin/top = -326.0
+margin/right = -65.0
+margin/bottom = -287.0
+bbcode/enabled = true
+bbcode/bbcode = "[center]10[/center]"
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="Player2Score" type="Sprite" parent="."]
+
+transform/pos = Vector2( 1120, 350 )
+texture = ExtResource( 5 )
+
+[node name="Text" type="RichTextLabel" parent="Player2Score"]
+
+rect/scale = Vector2( 5, 5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -111.0
+margin/top = -326.0
+margin/right = -67.0
+margin/bottom = -287.0
+bbcode/enabled = true
+bbcode/bbcode = "[center]10[/center]"
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="Player1" parent="." instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 312.758, 571.855 )
 
-[node name="Player2" parent="." instance=ExtResource( 5 )]
+[node name="Player2" parent="." instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 939.811, 571.855 )
 action_move_left = "player2_move_left"
@@ -78,7 +127,7 @@ bounce = 0.0
 [node name="boat" type="Sprite" parent="BoatContainer/Boat"]
 
 transform/pos = Vector2( 640, 360 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BoatContainer/Boat"]
 
@@ -89,32 +138,12 @@ _update_shape_index = 0
 
 [node name="PlatformManager" type="Node2D" parent="."]
 
-script/script = ExtResource( 7 )
+script/script = ExtResource( 8 )
 
 [node name="sea" type="Sprite" parent="."]
 
 transform/pos = Vector2( 640, 360.815 )
-texture = ExtResource( 8 )
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-
-anchor/left = 3
-anchor/top = 3
-anchor/right = 3
-anchor/bottom = 3
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = -588.0
-margin/top = -328.0
-margin/right = -628.0
-margin/bottom = -343.0
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-bbcode/enabled = false
-bbcode/bbcode = "Ready"
-visible_characters = -1
-percent_visible = 1.0
+texture = ExtResource( 9 )
 
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
@@ -133,38 +162,6 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[node name="Player1Score" type="RichTextLabel" parent="."]
-
-rect/scale = Vector2( 5, 5 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 50.0
-margin/top = 19.0
-margin/right = 90.0
-margin/bottom = 59.0
-bbcode/enabled = false
-bbcode/bbcode = "10"
-visible_characters = -1
-percent_visible = 1.0
-
-[node name="Player2Score" type="RichTextLabel" parent="."]
-
-rect/scale = Vector2( 5, 5 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 1134.0
-margin/top = 21.0
-margin/right = 1174.0
-margin/bottom = 61.0
-bbcode/enabled = false
-bbcode/bbcode = "10"
-visible_characters = -1
-percent_visible = 1.0
-
 [node name="TimerLabel" type="RichTextLabel" parent="."]
 
 focus/ignore_mouse = false
@@ -179,5 +176,35 @@ bbcode/enabled = false
 bbcode/bbcode = ""
 visible_characters = -1
 percent_visible = 1.0
+
+[node name="red wins" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 360 )
+texture = ExtResource( 11 )
+
+[node name="blue wins" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 360 )
+texture = ExtResource( 12 )
+
+[node name="3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 360 )
+texture = ExtResource( 13 )
+
+[node name="2" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 360 )
+texture = ExtResource( 14 )
+
+[node name="1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 360 )
+texture = ExtResource( 15 )
+
+[node name="go" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 360 )
+texture = ExtResource( 16 )
 
 
