@@ -133,4 +133,36 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
+[node name="Player1Score" type="RichTextLabel" parent="."]
+
+rect/scale = Vector2( 5, 5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 50.0
+margin/top = 19.0
+margin/right = 90.0
+margin/bottom = 59.0
+bbcode/enabled = false
+bbcode/bbcode = "10"
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="Player2Score" type="RichTextLabel" parent="."]
+
+rect/scale = Vector2( 5, 5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 1134.0
+margin/top = 21.0
+margin/right = 1174.0
+margin/bottom = 61.0
+bbcode/enabled = false
+bbcode/bbcode = "10"
+visible_characters = -1
+percent_visible = 1.0
+
 

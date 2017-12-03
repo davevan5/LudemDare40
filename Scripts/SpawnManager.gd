@@ -5,17 +5,23 @@ const MAX_RATE = 1.4
 
 const INITIAL_ZONES = 2
 const MAX_ZONES = 5
+
+const COIN_CHANCE = 0.25
+
 var zones = INITIAL_ZONES
 var zone_width = 1280 / INITIAL_ZONES
 
 var platform_scene
 var platform_speed = 100
 
+var coin_scene
+
 var rate = [0.2, 0.4]
 var timer = [0.0, 0.0]
 
 func _ready():
 	platform_scene = preload("res://Scenes/Platform/Platform.tscn")
+	coin_scene = preload("res://Scenes/Coin/Coin.tscn")
 
 func _process(delta):
 	for i in range(zones):
@@ -25,6 +31,17 @@ func _process(delta):
 
 func create(zone):
 	randomize()
+	
+	if randf() <= COIN_CHANCE:
+		var coin = coin_scene.instance()
+		var min_x = (zone * zone_width) + 8
+		var rand_x = (randi() % (zone_width - 16)) + min_x
+		coin.create(Vector2(rand_x, 0))
+		coin.set_speed(platform_speed)
+		coin.connect("touched", get_parent(), "on_coin_collected")
+		add_child(coin)
+		return
+	
 	timer[zone] -= rate[zone]
 	rate[zone] = (randf() * MAX_RATE) + MIN_RATE
 

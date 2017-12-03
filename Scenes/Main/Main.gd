@@ -17,6 +17,12 @@ var player2
 var player1_start_location
 var player2_start_location
 
+var player1_score = 0
+var player2_score = 0
+
+var player1_score_text
+var player2_score_text
+
 var countdown_text
 var boat_node
 var platform_manager
@@ -33,6 +39,9 @@ func _ready():
 	player2_start_location = player2.get_pos()
 	player1.connect("player_died", self, "on_player1_died")
 	player2.connect("player_died", self, "on_player2_died")
+	
+	player1_score_text = get_node("Player1Score")
+	player2_score_text = get_node("Player2Score")
 	
 	boat_node = get_node("BoatContainer/Boat")
 	reset_game()
@@ -56,6 +65,11 @@ func reset_game():
 	countdown_text.set_text("Get Ready!")
 	countdown_text.show()
 	state = State.COUNTDOWN
+	
+	player1_score = 0
+	player2_score = 0
+	player1_score_text.set_text("0")
+	player2_score_text.set_text("0")
 	
 	boat_node.set_pos(Vector2(0, 0))
 	update_platform_speed(INITIAL_PLATFORM_SPEED)
@@ -97,3 +111,12 @@ func update_boat(delta):
 	boat_pos.x = adjustment
 	boat_pos.y += platform_manager.get_speed() * delta
 	boat_node.set_pos(boat_pos)
+	
+func on_coin_collected(by):
+	if by == player1:
+		player1_score += 1
+		player1_score_text.set_text(String(player1_score))
+		
+	if by == player2:
+		player2_score += 1
+		player2_score_text.set_text(String(player2_score))
