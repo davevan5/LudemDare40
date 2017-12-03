@@ -88,8 +88,6 @@ func _process(delta):
 	Globals.set("game_speed", game_speed)
 	game_acceleration += GAME_ACCELERATION_RATE
 	update_platform_speed(INITIAL_PLATFORM_SPEED * game_speed)
-
-	get_node("TimerLabel").set_text("Time: %.3f\nSpeed: %.2f" % [game_time, game_speed])
 	
 	if state == State.COUNTDOWN:
 		countdown_timer += delta
