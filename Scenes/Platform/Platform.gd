@@ -25,7 +25,8 @@ func _process(delta):
 	body_pos += DIRECTION * current_speed * delta
 	body.set_pos(body_pos)
 
-func spawn(area, count):
+func spawn(area):
+	var count = randi()%3+1
 	var width = (count + 1) * BLOCK_WIDTH
 	var midwidth = width / 2
 	
@@ -46,7 +47,6 @@ func spawn(area, count):
 		block.set_pos(Vector2(x, 0))
 		get_node("PlatformBody").add_child(block)
 	
-	randomize()
 	var min_x = (area * 300) + midwidth
 	set_pos(Vector2((randi() % (300 - width)) + min_x, 10))
 
