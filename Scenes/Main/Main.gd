@@ -128,5 +128,8 @@ func update_boat(delta):
 		boat_movement_timer += delta
 		return
 
+	randomize()
+	var adjustment = (randi() % 10) - 5
+	boat_pos.x = adjustment
 	boat_pos.y += platform_speed * delta
 	boat_node.set_pos(boat_pos)
