@@ -68,6 +68,9 @@ func reset_game():
 	player1.set_pos(player1_start_location)
 	player2.set_pos(player2_start_location)
 	
+	game_time = 0.0
+	game_speed = INTIAL_GAME_SPEED
+	game_acceleration = 1.0
 	boat_movement_timer = 0
 	countdown_timer = 0
 	countdown_text.set_text("Get Ready!")
