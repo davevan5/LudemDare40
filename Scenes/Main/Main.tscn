@@ -10,7 +10,6 @@
 [ext_resource path="res://Images/sea.png" type="Texture" id=8]
 [ext_resource path="res://Music/POL-treasure-match-short.smp" type="Sample" id=9]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
@@ -58,6 +57,8 @@ animation_idle_left = "BlueIdleLeft"
 animation_idle_right = "BlueIdleRight"
 animation_walk_left = "BlueWalkLeft"
 animation_walk_right = "BlueWalkRight"
+animation_air_left = "BlueAirLeft"
+animation_air_right = "BlueAirRight"
 
 [node name="BoatContainer" type="Node2D" parent="."]
 
