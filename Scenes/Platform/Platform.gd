@@ -9,9 +9,11 @@ const DIRECTION = Vector2(0.0, 1.0)
 
 var current_speed = 0.0
 
+func _init():
+	block_factory = preload("res://Scenes/Platform/Block.tscn")
+
 func _ready():
 	body = get_node("PlatformBody")
-	block_factory = preload("res://Scenes/Platform/Block.tscn")
 	set_process(true)
 
 func _process(delta):
@@ -38,11 +40,9 @@ func spawn(area, count):
 
 	get_node("PlatformBody/LeftSprite").set_pos(Vector2(-midwidth, 0))
 	get_node("PlatformBody/RightSprite").set_pos(Vector2(midwidth, 0))
-	print(count)
 	for i in range(count):
 		var block = block_factory.instance()
 		var x = ((i + 1) * BLOCK_WIDTH) - midwidth
-		print(str(i + 1) + ":" + str(x))
 		block.set_pos(Vector2(x, 0))
 		get_node("PlatformBody").add_child(block)
 	

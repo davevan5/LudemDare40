@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://Scenes/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Images/background.png" type="Texture" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://Images/right tree.png" type="Texture" id=4]
 [ext_resource path="res://Images/boat.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Images/sea.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/PlatformManager.gd" type="Script" id=7]
+[ext_resource path="res://Images/sea.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -74,12 +75,14 @@ animation_idle_right = "BlueIdleRight"
 animation_walk_left = "BlueWalkLeft"
 animation_walk_right = "BlueWalkRight"
 
-[node name="PlatformContainer" type="Node2D" parent="."]
+[node name="PlatformManager" type="Node2D" parent="."]
+
+script/script = ExtResource( 7 )
 
 [node name="sea" type="Sprite" parent="."]
 
 transform/pos = Vector2( 640, 360 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 
