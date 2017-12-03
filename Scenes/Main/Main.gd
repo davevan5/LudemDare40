@@ -54,11 +54,11 @@ func _ready():
 	reset_game()
 	set_process(true)
 
-#func on_player1_died():
-#	reset_game() 
+func on_player1_died():
+	reset_game() 
 
-#func on_player2_died():
-#	reset_game()
+func on_player2_died():
+	reset_game()
 	
 func reset_game():
 	platform_manager.set_process(false)
