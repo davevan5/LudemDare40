@@ -1,6 +1,6 @@
 extends Node2D
 
-const MIN_RATE = 1.0
+const MIN_RATE = 1.25
 const MAX_RATE = 2.5
 
 var platform_scene
@@ -10,7 +10,6 @@ var timer = [0.0, 0.0, 0.0, 0.0]
 
 func _ready():
 	platform_scene = preload("res://Scenes/Platform/Platform.tscn")
-	set_process(true)
 
 func _process(delta):
 	for i in range(4):

@@ -45,6 +45,7 @@ func on_player2_died():
 	reset_game()
 	
 func reset_game():
+	platform_manager.set_process(false)
 	platform_manager.reset()
 	
 	player1.set_pos(player1_start_location)
@@ -69,6 +70,7 @@ func _process(delta):
 		if (countdown_timer >= 4):
 			countdown_text.hide()
 			state = State.PLAYING
+			platform_manager.set_process(true)
 			
 		countdown_text.set_text(String(remaining))
 		return
