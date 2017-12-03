@@ -4,9 +4,9 @@
 [ext_resource path="res://Images/background.png" type="Texture" id=2]
 [ext_resource path="res://Images/left tree.png" type="Texture" id=3]
 [ext_resource path="res://Images/right tree.png" type="Texture" id=4]
-[ext_resource path="res://Images/boat.png" type="Texture" id=5]
-[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scripts/PlatformManager.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Images/boat.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/SpawnManager.gd" type="Script" id=7]
 [ext_resource path="res://Images/sea.png" type="Texture" id=8]
 [ext_resource path="res://Music/POL-treasure-match-short.smp" type="Sample" id=9]
 
@@ -43,6 +43,23 @@ texture = ExtResource( 3 )
 transform/pos = Vector2( 640, 360 )
 texture = ExtResource( 4 )
 
+[node name="Player1" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 312.758, 571.855 )
+
+[node name="Player2" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 939.811, 571.855 )
+action_move_left = "player2_move_left"
+action_move_right = "player2_move_right"
+action_jump = "player2_jump"
+animation_idle_left = "BlueIdleLeft"
+animation_idle_right = "BlueIdleRight"
+animation_walk_left = "BlueWalkLeft"
+animation_walk_right = "BlueWalkRight"
+animation_air_left = "BlueAirLeft"
+animation_air_right = "BlueAirRight"
+
 [node name="BoatContainer" type="Node2D" parent="."]
 
 [node name="Boat" type="StaticBody2D" parent="BoatContainer"]
@@ -61,7 +78,7 @@ bounce = 0.0
 [node name="boat" type="Sprite" parent="BoatContainer/Boat"]
 
 transform/pos = Vector2( 640, 360 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BoatContainer/Boat"]
 
@@ -70,28 +87,13 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Player1" parent="." instance=ExtResource( 6 )]
-
-transform/pos = Vector2( 312.758, 571.855 )
-
-[node name="Player2" parent="." instance=ExtResource( 6 )]
-
-transform/pos = Vector2( 939.811, 571.855 )
-action_move_left = "player2_move_left"
-action_move_right = "player2_move_right"
-action_jump = "player2_jump"
-animation_idle_left = "BlueIdleLeft"
-animation_idle_right = "BlueIdleRight"
-animation_walk_left = "BlueWalkLeft"
-animation_walk_right = "BlueWalkRight"
-
 [node name="PlatformManager" type="Node2D" parent="."]
 
 script/script = ExtResource( 7 )
 
 [node name="sea" type="Sprite" parent="."]
 
-transform/pos = Vector2( 640, 360 )
+transform/pos = Vector2( 640, 360.815 )
 texture = ExtResource( 8 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
@@ -130,5 +132,52 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
+
+[node name="Player1Score" type="RichTextLabel" parent="."]
+
+rect/scale = Vector2( 5, 5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 50.0
+margin/top = 19.0
+margin/right = 90.0
+margin/bottom = 59.0
+bbcode/enabled = false
+bbcode/bbcode = "10"
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="Player2Score" type="RichTextLabel" parent="."]
+
+rect/scale = Vector2( 5, 5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 1134.0
+margin/top = 21.0
+margin/right = 1174.0
+margin/bottom = 61.0
+bbcode/enabled = false
+bbcode/bbcode = "10"
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="TimerLabel" type="RichTextLabel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 192.0
+margin/top = 9.0
+margin/right = 377.0
+margin/bottom = 49.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+percent_visible = 1.0
 
 

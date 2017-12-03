@@ -7,26 +7,40 @@ enum State {
 
 const BOAT_WAIT_TIME = 7
 const INITIAL_PLATFORM_SPEED = 100
+const INTIAL_GAME_SPEED = 1.0
+const GAME_ACCELERATION_RATE = 0.00000005
+const WIN_SCORE = 10
 
 var state = State.COUNTDOWN
 var countdown_timer = 0.0
 var boat_movement_timer = 0.0
+var game_time = 0.0
+var game_speed = INTIAL_GAME_SPEED
+var game_acceleration = 1.0
 
 var player1
 var player2
 var player1_start_location
 var player2_start_location
 
+var player1_score = 0
+var player2_score = 0
+
+var player1_score_text
+var player2_score_text
+
 var countdown_text
 var boat_node
 var platform_manager
 
+func _init():
+	Globals.set("game_speed", INTIAL_GAME_SPEED)
+
 func _ready():
 	get_node("SamplePlayer").play("music")
-	
 	platform_manager = get_node("PlatformManager")
-
 	countdown_text = get_node("RichTextLabel")
+
 	player1 = get_node("Player1")
 	player2 = get_node("Player2")
 	player1_start_location = player1.get_pos()
@@ -34,12 +48,15 @@ func _ready():
 	player1.connect("player_died", self, "on_player1_died")
 	player2.connect("player_died", self, "on_player2_died")
 	
+	player1_score_text = get_node("Player1Score")
+	player2_score_text = get_node("Player2Score")
+	
 	boat_node = get_node("BoatContainer/Boat")
 	reset_game()
 	set_process(true)
 
-func on_player1_died(): 
-	reset_game()
+func on_player1_died():
+	reset_game() 
 
 func on_player2_died():
 	reset_game()
@@ -57,10 +74,23 @@ func reset_game():
 	countdown_text.show()
 	state = State.COUNTDOWN
 	
+	player1_score = 0
+	player2_score = 0
+	player1_score_text.set_text("0")
+	player2_score_text.set_text("0")
+	
 	boat_node.set_pos(Vector2(0, 0))
 	update_platform_speed(INITIAL_PLATFORM_SPEED)
 
 func _process(delta):
+	game_time += delta
+	game_speed *= game_acceleration
+	Globals.set("game_speed", game_speed)
+	game_acceleration += GAME_ACCELERATION_RATE
+	update_platform_speed(INITIAL_PLATFORM_SPEED * game_speed)
+
+	get_node("TimerLabel").set_text("Time: %.3f\nSpeed: %.2f" % [game_time, game_speed])
+	
 	if state == State.COUNTDOWN:
 		countdown_timer += delta
 		var remaining = 3 - (floor(countdown_timer))
@@ -97,3 +127,18 @@ func update_boat(delta):
 	boat_pos.x = adjustment
 	boat_pos.y += platform_manager.get_speed() * delta
 	boat_node.set_pos(boat_pos)
+	
+func on_coin_collected(by):
+	if by == player1:
+		player1_score += 1
+		player1_score_text.set_text(String(player1_score))
+		
+	if by == player2:
+		player2_score += 1
+		player2_score_text.set_text(String(player2_score))
+		
+	if player1_score > WIN_SCORE:
+		reset_game()
+		
+	if player2_score > WIN_SCORE:
+		reset_game()
