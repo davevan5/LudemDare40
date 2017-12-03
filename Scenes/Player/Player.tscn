@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://Scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://Images/sprite sheet.png" type="Texture" id=2]
@@ -11,7 +11,40 @@ height = 22.5825
 
 [sub_resource type="Animation" id=2]
 
-resource/name = "BlueIdleLeft"
+resource/name = "BlueAirLeft"
+length = 0.01
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 16 ]
+}
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "BlueAirRight"
+length = 0.01
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 22 ]
+}
+
+[sub_resource type="Animation" id=4]
+
 length = 0.01
 loop = false
 step = 0.1
@@ -26,9 +59,8 @@ tracks/0/keys = {
 "values": [ 12 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=5]
 
-resource/name = "BlueIdleRight"
 length = 0.01
 loop = false
 step = 0.1
@@ -43,9 +75,8 @@ tracks/0/keys = {
 "values": [ 18 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 
-resource/name = "BlueWalkLeft"
 length = 0.4
 loop = false
 step = 0.1
@@ -60,9 +91,8 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 
-resource/name = "BlueWalkRight"
 length = 0.4
 loop = false
 step = 0.1
@@ -77,7 +107,41 @@ tracks/0/keys = {
 "values": [ 18, 19, 20, 21 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
+
+resource/name = "RedAirLeft"
+length = 0.01
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+
+[sub_resource type="Animation" id=9]
+
+resource/name = "RedAirRight"
+length = 0.01
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 10 ]
+}
+
+[sub_resource type="Animation" id=10]
 
 length = 0.01
 loop = true
@@ -93,7 +157,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=11]
 
 length = 0.01
 loop = false
@@ -109,7 +173,7 @@ tracks/0/keys = {
 "values": [ 6 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=12]
 
 length = 0.4
 loop = true
@@ -125,7 +189,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=13]
 
 length = 0.4
 loop = true
@@ -173,27 +237,33 @@ animation_idle_left = "RedIdleLeft"
 animation_idle_right = "RedIdleRight"
 animation_walk_left = "RedWalkLeft"
 animation_walk_right = "RedWalkRight"
+animation_air_left = "RedAirLeft"
+animation_air_right = "RedAirRight"
 
 [node name="Player1Sprite" type="Sprite" parent="."]
 
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 6
-frame = 12
+frame = 23
 
 [node name="animation" type="AnimationPlayer" parent="Player1Sprite"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/BlueIdleLeft = SubResource( 2 )
-anims/BlueIdleRight = SubResource( 3 )
-anims/BlueWalkLeft = SubResource( 4 )
-anims/BlueWalkRight = SubResource( 5 )
-anims/RedIdleLeft = SubResource( 6 )
-anims/RedIdleRight = SubResource( 7 )
-anims/RedWalkLeft = SubResource( 8 )
-anims/RedWalkRight = SubResource( 9 )
+anims/BlueAirLeft = SubResource( 2 )
+anims/BlueAirRight = SubResource( 3 )
+anims/BlueIdleLeft = SubResource( 4 )
+anims/BlueIdleRight = SubResource( 5 )
+anims/BlueWalkLeft = SubResource( 6 )
+anims/BlueWalkRight = SubResource( 7 )
+anims/RedAirLeft = SubResource( 8 )
+anims/RedAirRight = SubResource( 9 )
+anims/RedIdleLeft = SubResource( 10 )
+anims/RedIdleRight = SubResource( 11 )
+anims/RedWalkLeft = SubResource( 12 )
+anims/RedWalkRight = SubResource( 13 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

@@ -26,6 +26,8 @@ export(String) var animation_idle_left = "RedIdleLeft"
 export(String) var animation_idle_right = "RedIdleRight"
 export(String) var animation_walk_left = "RedWalkLeft"
 export(String) var animation_walk_right = "RedWalkRight"
+export(String) var animation_air_left = "RedAirLeft"
+export(String) var animation_air_right = "RedAirRight"
 
 var jump_impulse = 0
 const jump_impulse_initial = 25000
@@ -157,6 +159,13 @@ func set_look_direction(velocity):
 		look_direction = LookDirection.RIGHT
 
 func select_animation(velocity):
+	if state == States.FALLING || state == States.JUMPING:
+		if look_direction == LookDirection.LEFT:
+			play_animation(animation_air_left)
+		else:
+			play_animation(animation_air_right)
+		return
+	
 	# Set animation based off velocity
 	if velocity.x != 0 && state == States.GROUND:
 		if look_direction == LookDirection.LEFT:
