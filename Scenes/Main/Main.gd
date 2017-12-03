@@ -9,6 +9,7 @@ const BOAT_WAIT_TIME = 7
 const INITIAL_PLATFORM_SPEED = 100
 const INTIAL_GAME_SPEED = 1.0
 const GAME_ACCELERATION_RATE = 0.00000005
+const WIN_SCORE = 10
 
 var state = State.COUNTDOWN
 var countdown_timer = 0.0
@@ -135,3 +136,9 @@ func on_coin_collected(by):
 	if by == player2:
 		player2_score += 1
 		player2_score_text.set_text(String(player2_score))
+		
+	if player1_score > WIN_SCORE:
+		reset_game()
+		
+	if player2_score > WIN_SCORE:
+		reset_game()
