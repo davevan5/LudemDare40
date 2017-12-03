@@ -4,14 +4,14 @@
 [ext_resource path="res://Images/background.png" type="Texture" id=2]
 [ext_resource path="res://Images/left tree.png" type="Texture" id=3]
 [ext_resource path="res://Images/right tree.png" type="Texture" id=4]
-[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Images/tile.png" type="Texture" id=6]
+[ext_resource path="res://Images/boat.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Images/sea.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 32, 31.5557 )
+extents = Vector2( 444.392, 10 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -32,13 +32,40 @@ texture = ExtResource( 3 )
 transform/pos = Vector2( 640, 360 )
 texture = ExtResource( 4 )
 
-[node name="Player1" parent="." instance=ExtResource( 5 )]
+[node name="BoatContainer" type="Node2D" parent="."]
 
-transform/pos = Vector2( 136.399, 463.327 )
+[node name="Boat" type="StaticBody2D" parent="BoatContainer"]
 
-[node name="Player2" parent="." instance=ExtResource( 5 )]
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 640, 621.024 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 
-transform/pos = Vector2( 843.341, 467.849 )
+[node name="boat" type="Sprite" parent="BoatContainer/Boat"]
+
+transform/pos = Vector2( 640, 360 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoatContainer/Boat"]
+
+transform/pos = Vector2( 640, 621.024 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Player1" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 312.758, 571.855 )
+
+[node name="Player2" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 939.811, 571.855 )
 action_move_left = "player2_move_left"
 action_move_right = "player2_move_right"
 action_jump = "player2_jump"
@@ -47,37 +74,31 @@ animation_idle_right = "BlueIdleRight"
 animation_walk_left = "BlueWalkLeft"
 animation_walk_right = "BlueWalkRight"
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-transform/pos = Vector2( 489.355, 525.185 )
-input/pickable = false
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 12.5, 0, 0, 0.25, 0, 0 )
-shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 0.25
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-
-transform/scale = Vector2( 12.5, 0.25 )
-shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 0
-
-[node name="Sprite" type="Sprite" parent="StaticBody2D"]
-
-transform/scale = Vector2( 12.5, 0.25 )
-texture = ExtResource( 6 )
-
 [node name="PlatformContainer" type="Node2D" parent="."]
 
 [node name="sea" type="Sprite" parent="."]
 
 transform/pos = Vector2( 640, 360 )
 texture = ExtResource( 7 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -588.0
+margin/top = -328.0
+margin/right = -628.0
+margin/bottom = -343.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode/enabled = false
+bbcode/bbcode = "Ready"
+visible_characters = -1
+percent_visible = 1.0
 
 

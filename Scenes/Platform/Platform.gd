@@ -6,7 +6,8 @@ var body
 const BLOCK_WIDTH_MID = 16
 const BLOCK_WIDTH = 32
 const DIRECTION = Vector2(0.0, 1.0)
-const INITIAL_SPEED = 100
+
+var current_speed = 0.0
 
 func _ready():
 	body = get_node("PlatformBody")
@@ -19,7 +20,7 @@ func _process(delta):
 		queue_free()
 		return
 	
-	body_pos += DIRECTION * INITIAL_SPEED * delta
+	body_pos += DIRECTION * current_speed * delta
 	body.set_pos(body_pos)
 
 func spawn(area, count):
@@ -48,3 +49,6 @@ func spawn(area, count):
 	randomize()
 	var min_x = (area * 300) + midwidth
 	set_pos(Vector2((randi() % (300 - width)) + min_x, 10))
+
+func set_speed(speed):
+	current_speed = speed

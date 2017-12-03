@@ -47,6 +47,8 @@ var collision_shape
 
 var jump_released = true
 
+var platform_speed = 0.0
+
 signal player_died
 
 func _ready():
@@ -119,7 +121,7 @@ func _fixed_process(delta):
 			jump_released = false
 		
 		var pos = get_pos()
-		pos += Vector2(0, 1) * 150 * delta
+		pos += Vector2(0, 1) * platform_speed * delta
 		set_pos(pos)
 		#velocity += Vector2(0, 1) * 150
 		velocity += calculate_horizontal_velocity_adjustment(delta, ground_acceleration)
@@ -170,3 +172,6 @@ func select_animation(velocity):
 func play_animation(animation_name):
 	if !animation_player.is_playing() || animation_player.get_current_animation() != animation_name:
 		animation_player.play(animation_name)
+
+func set_platform_speed(speed):
+	platform_speed = speed
